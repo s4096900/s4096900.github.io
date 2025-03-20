@@ -1,0 +1,62 @@
+* {
+  color: rgb(18, 152, 13);
+}
+
+/* *star effects hole page */
+
+/* h1 etc.. are element selecters */
+h1,
+h3 {
+  color: blueviolet;
+  font-size: 1rem;
+  font-weight: bold;
+}
+/* h3 {
+  color: chartreuse;
+} */
+/* cassade coding means the latest or lowest code 
+will be run last meaning it will be the output 
+class will apply over elements regardles of order*/
+ul {
+  font-weight: bold;
+}
+
+/* .class where class = the class name */
+.blue-colour {
+  color: crimson;
+}
+
+/* # is for id */
+#outcome {
+  font-style: italic;
+  border: 4px dashed violet;
+}
+
+/* body is used bc all the text is placed in the body */
+body {
+  background-color: darkkhaki;
+  font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+/* all children of this will inherit the properties */
+section {
+  text-align: center;
+  border: 1px solid coral;
+}
+/* example code
+div {
+    font-weight: bold;
+} */
+
+/* 
+curly bracket {}
+squard brackets []
+round brackets ()
+colon :
+syntax : rules of the lang
+parantheses <> 
+universal selector * 
+. dot 
+# has
+*/
