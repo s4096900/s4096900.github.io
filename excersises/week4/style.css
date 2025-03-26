@@ -1,0 +1,37 @@
+body {
+  font-size: 1.1rem;
+  text-align: center;
+  margin: 0 auto;
+  /* will centre text horizontally */
+}
+
+h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0 auto;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+p {
+  width: 400px;
+  border: 1px solid crimson;
+  margin: 0 auto;
+  min-height: 90px;
+  /* padding: 30px 10px 50px 20px; */
+  /* top right bototm left */
+  padding: 20px;
+  border-bottom: 2px dashed green;
+}
+
+.vcentre {
+  line-height: 20px;
+  /* height - top padding - bottom padding  */
+}
+
+span {
+  /* span can be used to inline changes */
+  color: aqua;
+  /* display: none; */
+  /* tuns invisible */
+}
