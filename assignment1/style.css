@@ -1,0 +1,50 @@
+h1 {
+  text-align: center;
+  font-size: 2.4rem;
+  font-family: "Oswald", sans-serif;
+}
+p {
+  text-align: center;
+}
+body {
+  text-align: center;
+  /* height: 3000px; Used to enable scrolling */
+  background: linear-gradient(0deg, #b80f66 0%, #db1fd8 51%, #8645c7 85%);
+}
+.head {
+  font-size: 2rem;
+  margin: 2rem;
+}
+/* used to arrange the description content */
+ul {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+/* class to help change the image sizes */
+.img1 {
+  height: 20rem;
+  border-radius: 0.6rem;
+}
+
+div {
+  padding: 2rem;
+}
+/* used to create a transparent box around the text */
+.box {
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.outer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
