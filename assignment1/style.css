@@ -1,11 +1,11 @@
+/* title made with google fonts */
 h1 {
   text-align: center;
   font-size: 2.4rem;
-  font-family: "Oswald", sans-serif;
+  font-family: "Roboto Condensed", sans-serif;
+  padding-top: 2rem;
 }
-p {
-  text-align: center;
-}
+
 body {
   text-align: center;
   /* height: 3000px; Used to enable scrolling */
@@ -13,18 +13,26 @@ body {
 }
 .head {
   font-size: 2rem;
-  margin: 2rem;
+  margin: 0.8rem;
+}
+.h2 {
+  padding: 10px;
 }
 /* used to arrange the description content */
 ul {
+  font-family: "Ubuntu", sans-serif;
   display: flex;
   align-items: center;
   flex-direction: column;
+  padding: 1rem;
 }
 /* class to help change the image sizes */
 .img1 {
-  height: 20rem;
+  height: auto;
+  width: 50rem;
   border-radius: 0.6rem;
+  opacity: 0.78;
+  padding-top: 0.4rem;
 }
 
 div {
@@ -32,14 +40,22 @@ div {
 }
 /* used to create a transparent box around the text */
 .box {
-  padding: 10px;
+  padding: 0.625rem;
   background: rgba(255, 255, 255, 0.25);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(4px);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
-
+.box1 {
+  font-size: 1.5rem;
+  padding: 0.625rem;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
 .outer {
   display: flex;
   flex-direction: column;
