@@ -10,13 +10,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body>
-    <div class="outer">
-      <h1 class="box">
-        Assignment 1 - Interactive Experience Research Project
-      </h1>
-    </div>
+    <header class="noscale">
+      <div class="outerh">
+        <h1 class="boxh">
+          Assignment 1 - Interactive Experience Research Project
+        </h1>
+      </div>
+    </header>
 
-    <ul class="box">
+    <section class="box">
       <h2 class="head">Overview</h2>
       <ul class="h2">
         Title - ENDLESS SUMMER
@@ -25,10 +27,14 @@
         Author - Richard Mille
       </ul>
       <div>
-        <img src="img/background.png" alt="" , class="img1" />
+        <img
+          src="img/background.png"
+          alt="Sunset background with palm trees"
+          ,
+          class="img1"
+        />
       </div>
-    </ul>
-    <!-- p>lorem23 -->
+    </section>
 
     <div class="outer">
       <p class="box1" , class="box">
@@ -36,6 +42,7 @@
         <br />-Window interactivity <br />-Animated background
       </p>
     </div>
+    <!-- used the same div and p with classes for each answer to allow for less css work -->
     <div class="outer">
       <p class="box">
         1) What was the first thing you paid attention to when interacting with
@@ -137,10 +144,29 @@
         water make a very immersive experience.
       </p>
     </div>
-    <!-- tested adding an interactive window with the original page, didnt pan out -->
-    <!-- <iframe
-      src="https://endless-summer.richardmille.com/"
-      frameborder="0"
-    ></iframe> -->
+    <!-- tested adding an interactive window with the original page, didnt pan out
+     attempted a second time on 4/04 and it does work with some css -->
+    <div class="outerh">
+      <h2 class="boxh">Interactive Example</h2>
+    </div>
+    <div class="iframe-container">
+      <iframe
+        src="https://endless-summer.richardmille.com/"
+        frameborder="0"
+        id="1"
+      ></iframe>
+      <div class="resize-handle"></div>
+    </div>
+    <div class="outer">
+      <p class="box">
+        Unfortunately, while I got the iframe working to showcase the webpage, I
+        discovered that if the webpage is resized to a very small width it
+        unlocks another experience to interact with. This discovery was made
+        from the iframe because it can be scaled smaller than Chrome allows a
+        window to be on a laptop. Because I only found this out on the due date
+        my answers above are only for the first half of the page while it's
+        being resized.
+      </p>
+    </div>
   </body>
 </html>
