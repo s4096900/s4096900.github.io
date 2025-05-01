@@ -1,116 +1,191 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
 body {
   display: flex;
-  margin: 20px auto;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  background-color: #f0e6e0;
+  color: #4a3b31;
   font-family: "REM", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-  color: rgb(202, 151, 122);
-  min-height: auto;
+  padding: 20px;
 }
 
-.double-border {
-  border: 6px double rgb(65, 41, 27);
-  border-radius: 16px;
-}
-
-h1 {
-  font-size: 2.3rem;
-  font-weight: bold;
-}
-
-.main-screen,
-.controls {
+.player-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.main-screen {
-  position: relative;
-  width: 50vw;
-  height: 50vh;
-  padding: 10px;
-}
-
-.main-screen img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  max-width: 80%;
-  max-height: 80%;
-  object-fit: contain;
-  border-radius: 12px;
-  display: none;
-}
-
-.controls {
-  gap: 10px;
-  padding: 10px;
-  background-color: transparent;
-  position: static;
-  width: auto;
-}
-
-#progress-bar-container {
+  gap: 20px;
+  align-items: stretch;
   width: 100%;
-  height: 10px;
-  background-color: gray;
-  border-radius: 5px;
+  height: 100%;
+  max-width: 1200px;
+  max-height: 900px;
+}
+
+.playlist {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 150px;
+}
+
+.glyph-button {
+  cursor: pointer;
+  padding: 10px 15px;
+  font-size: 1rem;
+  color: #4a3b31;
+  border-radius: 8px;
+  background-color: #e0cba8;
+  border: 4px double #4a3b31;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.glyph-button:hover {
+  background-color: #d1b88e;
+  transform: scale(1.05);
+}
+
+.media-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f8f3ed;
+  border: 6px double #4a3b31;
+  border-radius: 16px;
+  flex-grow: 1;
+  height: auto;
+  position: relative;
+  min-height: 0;
+}
+
+.progress-container {
+  width: 100%;
+  height: 8px;
+  background-color: #d3d3d3;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  overflow: hidden;
 }
 
 #progress-bar {
   width: 0%;
-  display: block;
-  background-color: coral;
   height: 100%;
-  transition: width 0.2s ease;
-  border-radius: 5px;
+  background-color: #a0522d;
+  border-radius: 4px;
+  transition: width 0.1s ease-in-out;
 }
 
-button {
-  cursor: pointer;
-  padding: 10px;
-  font-size: 1.2rem;
-  color: black;
-  border-radius: 12px;
-  background-color: rgba(250, 235, 215, 0.588);
-  border: none;
-}
-
-button:hover {
-  scale: 0.9;
-  background-color: rgba(250, 235, 215, 0.25);
-}
-
-footer {
-  color: rgb(202, 151, 122);
-  text-align: center;
-  padding: 10px;
-  position: static;
-  width: auto;
-  background-color: transparent;
-}
-
-.glyph-image {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  max-width: 80%;
+#glyph-display {
+  max-width: 95%;
   max-height: 80%;
   object-fit: contain;
   border-radius: 12px;
-  display: none;
+  margin-bottom: 15px;
+  flex-grow: 1;
 }
 
-#glyph1 {
-  display: block;
+.media-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.control-button {
+  cursor: pointer;
+  padding: 8px;
+  background-color: #e0cba8;
+  border: 4px double #4a3b31;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.control-button:hover {
+  background-color: #d1b88e;
+  transform: scale(1.1);
+}
+
+.control-button img {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0.5);
+}
+
+.sliders-container {
+  display: flex;
+  flex-direction: row; /* Arrange sliders horizontally */
+  gap: 20px; /* Spacing between sliders */
+  width: auto; /* Adjust width to content */
+  height: 100%; /* Make the container take full vertical height */
+  padding: 15px;
+  background-color: #f8f3ed;
+  border: 6px double #4a3b31;
+  border-radius: 16px;
+  align-items: center; /* Center sliders vertically within the row */
+  justify-content: space-around; /* Distribute space evenly */
+}
+
+.vertical-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100px; /* Set initial width before rotation */
+  height: 8px; /* Set initial height before rotation (thickness) */
+  background: #d3d3d3;
+  border-radius: 4px;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+  cursor: pointer;
+  transform-origin: center center;
+  /* transform: rotate(-90deg); Rotate to make it vertical */
+  margin: 0;
+  /* Adjust width and height after rotation */
+  /* The original height becomes the visual width, and vice-versa */
+  min-width: 8px; /* Ensure some visible width */
+  max-height: 100%; /* Allow it to take full container height */
+}
+
+.vertical-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background: #a0522d;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.vertical-slider::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  background: #a0522d;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+
+footer {
+  color: #776357;
+  text-align: center;
+  padding: 10px;
+  font-size: 0.9rem;
+}
+
+footer a {
+  color: #a0522d;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
 }

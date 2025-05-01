@@ -1,30 +1,80 @@
-const glyph1 = document.querySelector("#glyph1");
-const glyph2 = document.querySelector("#glyph2");
-const glyph3 = document.querySelector("#glyph3");
-const glyphImages = document.querySelectorAll(".glyph-image");
-const progressBar = document.querySelector("#progress-bar");
+const glyphButtons = document.querySelectorAll(".glyph-button");
+const glyphDisplay = document.querySelector("#glyph-display");
 const playPauseButton = document.querySelector("#play-pause-button");
 const playPauseImg = document.querySelector("#play-pause-img");
-const glyph1Button = document.querySelector("#glyph1-button");
-const glyph2Button = document.querySelector("#glyph2-button");
-const glyph3Button = document.querySelector("#glyph3-button");
-const fullscreenButton = document.querySelector("#fullscreen-button");
+const progressBar = document.querySelector("#progress-bar");
 const volumeSlider = document.querySelector("#volume-slider");
+const verticalSliders = document.querySelectorAll(".vertical-slider");
 
-glyph1Button.addEventListener("click", function () {
-  showGlyph(0);
-});
+const glyphSources = [
+  "https://cdnb.artstation.com/p/assets/images/images/043/163/227/original/augustin-cart-gif-lofi-final.gif?1636484521",
+  "https://media1.tenor.com/m/ZSRfK14Kek8AAAAd/lofi-vaporwave.gif",
+  "https://i.gifer.com/PPy.gif",
+];
 
-glyph2Button.addEventListener("click", function () {
-  showGlyph(1);
-});
+let currentGlyphIndex = 0;
+let isPlaying = false;
+let animationFrameId;
 
-glyph3Button.addEventListener("click", function () {
-  showGlyph(2);
-});
-
-// Modified function to show the selected glyph
-function showGlyph(index) {
-  glyphImages.forEach((img) => (img.style.display = "none")); // Hide all images
-  glyphImages[index].style.display = "block"; // Show the selected image
+function loadGlyph(index) {
+  glyphDisplay.src = glyphSources[index];
+  progressBar.style.width = "0%";
 }
+
+function playGlyph() {
+  isPlaying = true;
+  playPauseImg.src = "https://img.icons8.com/ios-glyphs/30/pause--v1.png";
+  animateProgressBar();
+}
+
+function pauseGlyph() {
+  isPlaying = false;
+  playPauseImg.src = "https://img.icons8.com/ios-glyphs/30/play--v2.png";
+  cancelAnimationFrame(animationFrameId);
+}
+
+function togglePlay() {
+  if (isPlaying) {
+    pauseGlyph();
+  } else {
+    playGlyph();
+  }
+}
+
+function animateProgressBar() {
+  let width = parseFloat(progressBar.style.width) || 0;
+  const increment = 0.1; // Adjust for speed
+  if (width < 100 && isPlaying) {
+    width += increment;
+    progressBar.style.width = width + "%";
+    animationFrameId = requestAnimationFrame(animateProgressBar);
+  } else if (width >= 100) {
+    pauseGlyph();
+    progressBar.style.width = "0%"; // Reset after completion
+  }
+}
+
+glyphButtons.forEach((button, index) => {
+  button.addEventListener("click", () => {
+    currentGlyphIndex = index;
+    loadGlyph(currentGlyphIndex);
+    pauseGlyph();
+  });
+});
+
+playPauseButton.addEventListener("click", togglePlay);
+
+volumeSlider.addEventListener("input", function () {
+  // Still no direct effect on GIFs
+  // console.log("Volume:", this.value);
+});
+
+verticalSliders.forEach((slider) => {
+  slider.addEventListener("input", function () {
+    // Basic logging for now - you'll likely want to connect these to some visual or functional aspect
+    console.log("Vertical Slider Value:", this.value);
+  });
+});
+
+// Load the initial glyph
+loadGlyph(currentGlyphIndex);
