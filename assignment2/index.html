@@ -3,16 +3,64 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="reset.css" />
-    <link rel="stylesheet" href="style.css" />
+    <title>Media player</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=REM:ital,wght@0,100..900;1,100..900&family=Tuffy:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="style.css" />
     <script src="script.js" defer></script>
   </head>
   <body>
-    <video controls>
-      <source src="" type="video/mp4" />
-    </video>
+    <header></header>
+    <main class="double-border">
+      <div class="main-screen">
+        <img
+          src="https://cdnb.artstation.com/p/assets/images/images/043/163/227/original/augustin-cart-gif-lofi-final.gif?1636484521"
+          id="glyph1"
+          class="glyph-image"
+        />
+        <img
+          src="https://media1.tenor.com/m/ZSRfK14Kek8AAAAd/lofi-vaporwave.gif"
+          id="glyph2"
+          class="glyph-image"
+        />
+        <img
+          src="https://i.gifer.com/PPy.gif"
+          id="glyph3"
+          class="glyph-image"
+        />
+      </div>
+      <div class="playlist">
+        <button class="double-border" id="glyph1-button">Glyph 1</button>
+        <button class="double-border" id="glyph2-button">Glyph 2</button>
+        <button class="double-border" id="glyph3-button">Glyph 3</button>
+      </div>
+      <div class="controls">
+        <button id="play-pause-button" class="double-border">
+          <img
+            src="https://img.icons8.com/ios-glyphs/30/play--v2.png"
+            alt=""
+            id="play-pause-img"
+          />
+        </button>
+        <input
+          type="range"
+          id="volume-slider"
+          min="0"
+          max="1"
+          step="0.01"
+          value="1"
+          class="double-border"
+        />
+        <div id="progress-bar-container">
+          <span id="progress-bar"></span>
+        </div>
+      </div>
+    </main>
+    <footer>Icons by <a href="https://icons8.com/">Icons8</a></footer>
   </body>
 </html>
