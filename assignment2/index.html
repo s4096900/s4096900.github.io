@@ -12,7 +12,6 @@
     />
     <link rel="stylesheet" href="reset.css" />
     <link rel="stylesheet" href="style.css" />
-    <script src="script.js" defer></script>
   </head>
   <body>
     <main class="player-container">
@@ -45,31 +44,59 @@
             />
           </button>
         </div>
+
+        <audio id="media-audio" preload="auto"></audio>
+        <!-- Main audio player for the glyph music -->
+
+        <!-- Optional: Background audio elements for sliders (added here for visibility) -->
+        <audio
+          id="bg-audio-1"
+          src="https://thelongesthumstore.sgp1.cdn.digitaloceanspaces.com/IM-2250/erokia_ambient-wave-56-msfxp7-78.mp3"
+          loop
+        ></audio>
+        <audio
+          id="bg-audio-2"
+          src="https://cdn.freesound.org/previews/621/621181_12574855-hq.mp3"
+          loop
+        ></audio>
+        <audio
+          id="bg-audio-3"
+          src="https://cdn.freesound.org/previews/629/629168_12574855-lq.mp3"
+          loop
+        ></audio>
       </div>
+
       <div class="sliders-container double-border">
-        <input
-          type="range"
-          class="vertical-slider"
-          min="0"
-          max="100"
-          value="50"
-        />
-        <input
-          type="range"
-          class="vertical-slider"
-          min="0"
-          max="100"
-          value="50"
-        />
-        <input
-          type="range"
-          class="vertical-slider"
-          min="0"
-          max="100"
-          value="50"
-        />
+        <div class="slider-wrapper">
+          <input
+            type="range"
+            class="vertical-slider"
+            min="0"
+            max="100"
+            value="50"
+          />
+        </div>
+        <div class="slider-wrapper">
+          <input
+            type="range"
+            class="vertical-slider"
+            min="0"
+            max="100"
+            value="50"
+          />
+        </div>
+        <div class="slider-wrapper">
+          <input
+            type="range"
+            class="vertical-slider"
+            min="0"
+            max="100"
+            value="50"
+          />
+        </div>
       </div>
     </main>
-    <footer>Icons by <a href="https://icons8.com/">Icons8</a></footer>
+
+    <script src="script.js"></script>
   </body>
 </html>

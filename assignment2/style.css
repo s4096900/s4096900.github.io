@@ -1,3 +1,4 @@
+/* --- Keep these rules as they were --- */
 html,
 body {
   height: 100%;
@@ -13,6 +14,7 @@ body {
   color: #4a3b31;
   font-family: "REM", sans-serif;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .player-container {
@@ -62,6 +64,7 @@ body {
   height: auto;
   position: relative;
   min-height: 0;
+  box-sizing: border-box;
 }
 
 .progress-container {
@@ -78,7 +81,7 @@ body {
   height: 100%;
   background-color: #a0522d;
   border-radius: 4px;
-  transition: width 0.1s ease-in-out;
+  transition: width 0.1s ease-in-out; /* Keep transition for smoother updates */
 }
 
 #glyph-display {
@@ -88,6 +91,12 @@ body {
   border-radius: 12px;
   margin-bottom: 15px;
   flex-grow: 1;
+  min-height: 0;
+}
+
+/* NEW: Hide the default audio element controls */
+#media-audio {
+  display: none;
 }
 
 .media-controls {
@@ -120,41 +129,65 @@ body {
   filter: brightness(0.5);
 }
 
+/* --- CSS Modifications for Sliders --- */
+
+/* Container for all slider wrappers */
 .sliders-container {
   display: flex;
-  flex-direction: row; /* Arrange sliders horizontally */
-  gap: 20px; /* Spacing between sliders */
-  width: auto; /* Adjust width to content */
-  height: 100%; /* Make the container take full vertical height */
-  padding: 15px;
+  flex-direction: row;
+  gap: 10px;
+  width: 180px;
+  height: 100%;
+  padding: 20px 10px;
   background-color: #f8f3ed;
   border: 6px double #4a3b31;
   border-radius: 16px;
-  align-items: center; /* Center sliders vertically within the row */
-  justify-content: space-around; /* Distribute space evenly */
+  align-items: stretch;
+  justify-content: space-around;
+  box-sizing: border-box;
 }
 
+/* Invisible wrapper for each slider */
+.slider-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 100%;
+  position: relative;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+/* The actual vertical slider */
 .vertical-slider {
   -webkit-appearance: none;
   appearance: none;
-  width: 100px; /* Set initial width before rotation */
-  height: 8px; /* Set initial height before rotation (thickness) */
+  height: 8px;
   background: #d3d3d3;
   border-radius: 4px;
   outline: none;
   opacity: 0.7;
-  -webkit-transition: 0.2s;
   transition: opacity 0.2s;
   cursor: pointer;
-  transform-origin: center center;
-  /* transform: rotate(-90deg); Rotate to make it vertical */
+  position: absolute;
   margin: 0;
-  /* Adjust width and height after rotation */
-  /* The original height becomes the visual width, and vice-versa */
-  min-width: 8px; /* Ensure some visible width */
-  max-height: 100%; /* Allow it to take full container height */
+  /* This is the key fix - set width to match parent height */
+  /* Adjusted width calculation slightly for better fit */
+  width: calc(
+    100vh - 140px
+  ); /* Approximate height of player-container minus padding */
+  /* Center and rotate the slider */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
 }
 
+/* Thumb styles (no changes needed here) */
 .vertical-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
@@ -163,6 +196,7 @@ body {
   background: #a0522d;
   border-radius: 50%;
   cursor: pointer;
+  border: 1px solid #4a3b31;
 }
 
 .vertical-slider::-moz-range-thumb {
@@ -171,14 +205,19 @@ body {
   background: #a0522d;
   border-radius: 50%;
   cursor: pointer;
-  border: none;
+  border: 1px solid #4a3b31;
 }
 
+/* --- Footer --- */
 footer {
   color: #776357;
   text-align: center;
   padding: 10px;
   font-size: 0.9rem;
+  position: absolute; /* Position absolutely to keep it at the bottom */
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
 
 footer a {
