@@ -1,22 +1,40 @@
-/* --- Keep these rules as they were --- */
+/* i discovered how to do this with the help of ai and it has provided
+a much faster way to edit and change colour palletes and themes for the whole
+document */
+:root {
+  --bg-main: #2b1f2f;
+  --text-main: #e6dad0;
+  --button-bg: #6e4566;
+  --button-bg2: #8d3a74;
+  --button-hover: #9a748a;
+  --border-color: #6d5e75;
+  --slider-track: #4b6a7a;
+  --thumb-color: #deb6c1;
+  --volume-text: #e6dad0;
+}
+
 html,
 body {
   height: 100%;
   margin: 0;
   overflow: hidden;
 }
-
 body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f0e6e0;
-  color: #4a3b31;
+  background-color: var(--bg-main);
+  color: var(--text-main);
   font-family: "REM", sans-serif;
   padding: 20px;
   box-sizing: border-box;
 }
-
+/* ul is used for the pop up text format */
+ul {
+  font-size: x-large;
+  font-weight: bold;
+}
+/* page formatting */
 .player-container {
   display: flex;
   gap: 20px;
@@ -26,39 +44,53 @@ body {
   max-width: 1200px;
   max-height: 900px;
 }
-
 .playlist {
   display: flex;
   flex-direction: column;
   gap: 10px;
   width: 150px;
 }
-
+/* code for the left hand buttons style */
 .glyph-button {
   cursor: pointer;
   padding: 10px 15px;
-  font-size: 1rem;
-  color: #4a3b31;
   border-radius: 8px;
-  background-color: #e0cba8;
-  border: 4px double #4a3b31;
+  border: 4px double var(--border-color);
+  background-color: var(--button-bg);
   transition: background-color 0.3s ease, transform 0.2s ease;
   text-align: center;
   flex-grow: 1;
+  background-repeat: no-repeat;
 }
-
+/* did it this way to make it easier to code each of the 3 left hand buttons
+to have their own respective image/gif in it */
+[data-glyph="0"] {
+  background-image: url("https://cdnb.artstation.com/p/assets/images/images/043/163/227/original/augustin-cart-gif-lofi-final.gif?1636484521");
+  background-position: center;
+  background-size: cover;
+}
+[data-glyph="1"] {
+  background-image: url("https://media1.tenor.com/m/ZSRfK14Kek8AAAAd/lofi-vaporwave.gif");
+  background-position: center;
+  background-size: cover;
+}
+[data-glyph="2"] {
+  background-image: url("https://i.gifer.com/PPy.gif");
+  background-position: center;
+  background-size: cover;
+}
 .glyph-button:hover {
-  background-color: #d1b88e;
   transform: scale(1.05);
+  background-color: var(--button-hover);
 }
-
+/* box to hold the central visual */
 .media-area {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  background-color: #f8f3ed;
-  border: 6px double #4a3b31;
+  background-color: var(--button-bg);
+  border: 4px double var(--border-color);
   border-radius: 16px;
   flex-grow: 1;
   height: auto;
@@ -66,24 +98,24 @@ body {
   min-height: 0;
   box-sizing: border-box;
 }
-
+/* location of the progress bar same code as before with the exception of the colour changes */
 .progress-container {
   width: 100%;
   height: 8px;
-  background-color: #d3d3d3;
+  background-color: var(--button-hover);
   border-radius: 4px;
   margin-bottom: 10px;
   overflow: hidden;
 }
-
+/* using the original example code except i made mine have rounded ends, and added the colour changes */
 #progress-bar {
   width: 0%;
   height: 100%;
-  background-color: #a0522d;
+  background-color: var(--border-color);
   border-radius: 4px;
-  transition: width 0.1s ease-in-out; /* Keep transition for smoother updates */
+  transition: width 0.1s ease-in-out;
 }
-
+/* the display for the large gif in the centre of the screen */
 #glyph-display {
   max-width: 95%;
   max-height: 80%;
@@ -93,45 +125,38 @@ body {
   flex-grow: 1;
   min-height: 0;
 }
-
-/* NEW: Hide the default audio element controls */
+/* code for  the play pause button pretty much the same as the
+given example, with again the exception of the colour code being modified */
 #media-audio {
   display: none;
 }
-
 .media-controls {
   display: flex;
   align-items: center;
   gap: 15px;
   margin-bottom: 10px;
 }
-
 .control-button {
   cursor: pointer;
   padding: 8px;
-  background-color: #e0cba8;
-  border: 4px double #4a3b31;
+  background-color: var(--button-bg2);
+  border: 4px double var(--border-color);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
-
 .control-button:hover {
-  background-color: #d1b88e;
+  background-color: var(--button-hover);
   transform: scale(1.1);
 }
-
 .control-button img {
   width: 20px;
   height: 20px;
   filter: brightness(0.5);
 }
-
-/* --- CSS Modifications for Sliders --- */
-
-/* Container for all slider wrappers */
+/* css code for the vertical sliders */
 .sliders-container {
   display: flex;
   flex-direction: row;
@@ -139,19 +164,21 @@ body {
   width: 180px;
   height: 100%;
   padding: 20px 10px;
-  background-color: #f8f3ed;
-  border: 6px double #4a3b31;
+  background-color: var(--button-bg);
+  border: 4px double var(--border-color);
   border-radius: 16px;
-  align-items: stretch;
+  align-items: flex-end;
   justify-content: space-around;
   box-sizing: border-box;
 }
-
-/* Invisible wrapper for each slider */
+/* this code helps to make it so the vertical sliders don't wreck the layout,
+for some reason it is insanely hard to get this to work but this seems to, so i made these invisible boxes
+ */
 .slider-wrapper {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: flex-end;
   width: 40px;
   height: 100%;
   position: relative;
@@ -162,69 +189,115 @@ body {
   flex-shrink: 0;
   box-sizing: border-box;
 }
-
-/* The actual vertical slider */
 .vertical-slider {
   -webkit-appearance: none;
   appearance: none;
   height: 8px;
-  background: #d3d3d3;
+  width: calc(100vh - 140px);
+  background: var(--slider-track);
   border-radius: 4px;
   outline: none;
   opacity: 0.7;
   transition: opacity 0.2s;
   cursor: pointer;
   position: absolute;
-  margin: 0;
-  /* This is the key fix - set width to match parent height */
-  /* Adjusted width calculation slightly for better fit */
-  width: calc(
-    100vh - 140px
-  ); /* Approximate height of player-container minus padding */
-  /* Center and rotate the slider */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) rotate(-90deg);
+  margin: 0;
 }
-
-/* Thumb styles (no changes needed here) */
+/* displays the percentage volume of each track */
+.volume-display {
+  margin-top: 10px;
+  font-size: 0.8em;
+  color: var(--volume-text);
+  text-align: center;
+  width: 100%;
+  position: static;
+}
+/* controlled the slider handle */
 .vertical-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 15px;
   height: 15px;
-  background: #a0522d;
+  background: var(--thumb-color);
   border-radius: 50%;
   cursor: pointer;
   border: 1px solid #4a3b31;
 }
-
 .vertical-slider::-moz-range-thumb {
   width: 15px;
   height: 15px;
-  background: #a0522d;
+  background: var(--thumb-color);
   border-radius: 50%;
   cursor: pointer;
   border: 1px solid #4a3b31;
 }
 
-/* --- Footer --- */
-footer {
-  color: #776357;
+/* next few css boxes are for formatting the pop up box at the start */
+.floating-popup {
+  position: fixed;
+  width: 300px;
+  background-color: rgb(49, 13, 38);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  z-index: 1000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.floating-popup p {
+  margin-top: 0;
   text-align: center;
-  padding: 10px;
-  font-size: 0.9rem;
-  position: absolute; /* Position absolutely to keep it at the bottom */
-  bottom: 0;
+  line-height: 1.5;
+}
+
+.floating-popup button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 15px;
+  transition: background-color 0.2s;
+}
+
+.floating-popup button:hover {
+  background-color: #45a049;
+}
+
+/* dims the background slightly when the pop up is on screen to make it 
+clearer of what to focus on */
+.popup-backdrop {
+  position: fixed;
+  top: 0;
   left: 0;
   width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 999;
 }
 
-footer a {
-  color: #a0522d;
-  text-decoration: none;
+/*this code makes it so that the start pop up can appear and disappear cleanly */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
 }
 
-footer a:hover {
-  text-decoration: underline;
+.floating-popup {
+  animation: fadeIn 0.3s ease-out;
 }

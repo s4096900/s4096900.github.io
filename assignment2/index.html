@@ -12,29 +12,28 @@
     />
     <link rel="stylesheet" href="reset.css" />
     <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
   </head>
   <body>
     <main class="player-container">
+      <!-- controller and div for the left hand buttons -->
       <div class="playlist">
-        <button class="glyph-button double-border" data-glyph="0">
-          Glyph 1
-        </button>
-        <button class="glyph-button double-border" data-glyph="1">
-          Glyph 2
-        </button>
-        <button class="glyph-button double-border" data-glyph="2">
-          Glyph 3
-        </button>
+        <button class="glyph-button double-border" data-glyph="0"></button>
+        <button class="glyph-button double-border" data-glyph="1"></button>
+        <button class="glyph-button double-border" data-glyph="2"></button>
       </div>
+      <!-- progress bar -->
       <div class="media-area double-border">
         <div class="progress-container">
           <div id="progress-bar"></div>
         </div>
+        <!-- this is the location and through which the javascript changes which image is the focused one -->
         <img
           src="https://cdnb.artstation.com/p/assets/images/images/043/163/227/original/augustin-cart-gif-lofi-final.gif?1636484521"
           id="glyph-display"
           alt="GIF Display"
         />
+        <!-- play pause button -->
         <div class="media-controls">
           <button id="play-pause-button" class="control-button double-border">
             <img
@@ -44,29 +43,30 @@
             />
           </button>
         </div>
-
-        <audio id="media-audio" preload="auto"></audio>
-        <!-- Main audio player for the glyph music -->
-
-        <!-- Optional: Background audio elements for sliders (added here for visibility) -->
+        <!-- audio for the 3 tracks, the commented out ones are some alternate idea urls-->
         <audio
-          id="bg-audio-1"
+          id="audio-1"
           src="https://thelongesthumstore.sgp1.cdn.digitaloceanspaces.com/IM-2250/erokia_ambient-wave-56-msfxp7-78.mp3"
-          loop
+          preload="auto"
         ></audio>
         <audio
-          id="bg-audio-2"
-          src="https://cdn.freesound.org/previews/621/621181_12574855-hq.mp3"
+          id="audio-2"
+          src="https://cdn.freesound.org/previews/591/591327_13228046-lq.mp3"
+          preload="auto"
           loop
         ></audio>
+        <!-- https://cdn.freesound.org/previews/629/629168_12574855-lq.mp3 -->
         <audio
-          id="bg-audio-3"
-          src="https://cdn.freesound.org/previews/629/629168_12574855-lq.mp3"
+          id="audio-3"
+          src="https://cdn.freesound.org/previews/591/591660_13228046-lq.mp3"
+          preload="auto"
           loop
         ></audio>
+        <!-- https://cdn.freesound.org/previews/621/621181_12574855-hq.mp3 -->
       </div>
-
+      <!-- containers and div for the vertical sliders -->
       <div class="sliders-container double-border">
+        <!-- wrapper to help keep them vertically -->
         <div class="slider-wrapper">
           <input
             type="range"
@@ -75,6 +75,8 @@
             max="100"
             value="50"
           />
+          <!-- initial start volume, so all the tracks start at 50% volume -->
+          <div class="volume-display">50%</div>
         </div>
         <div class="slider-wrapper">
           <input
@@ -84,6 +86,7 @@
             max="100"
             value="50"
           />
+          <div class="volume-display">50%</div>
         </div>
         <div class="slider-wrapper">
           <input
@@ -93,10 +96,26 @@
             max="100"
             value="50"
           />
+          <div class="volume-display">50%</div>
         </div>
       </div>
     </main>
 
-    <script src="script.js"></script>
+    <!-- the code below controls the intro pop up -->
+    <div id="popup-backdrop" class="popup-backdrop"></div>
+
+    <!-- Floating Popup -->
+    <div id="intro-popup" class="floating-popup">
+      <ul>
+        Welcome to LofiMix!
+      </ul>
+      <p>
+        A place to mix and listen to lofibeats while studiyng. <br />
+        Choose a Visual on the left <br />
+        Use the sliders on the right to adjust the tracks volume, then press ▶️
+        or space to start.
+      </p>
+      <button onclick="closePopup()">Got it!</button>
+    </div>
   </body>
 </html>

@@ -1,150 +1,238 @@
+// setting the initial dom elements
 const glyphButtons = document.querySelectorAll(".glyph-button");
 const glyphDisplay = document.querySelector("#glyph-display");
 const playPauseButton = document.querySelector("#play-pause-button");
 const playPauseImg = document.querySelector("#play-pause-img");
 const progressBar = document.querySelector("#progress-bar");
 const verticalSliders = document.querySelectorAll(".vertical-slider");
+const volumeDisplays = document.querySelectorAll(".volume-display");
 
-// Primary audio element (now plays one persistent track)
-const mediaAudio = document.querySelector("#media-audio");
+// controlls the audio tracks
+const audio1 = document.querySelector("#audio-1");
+const audio2 = document.querySelector("#audio-2");
+const audio3 = document.querySelector("#audio-3");
 
-// *** NEW: Set the single audio source for the main player ***
-mediaAudio.src =
-  "https://thelongesthumstore.sgp1.cdn.digitaloceanspaces.com/IM-2250/erokia_ambient-wave-56-msfxp7-78.mp3"; // Using the first track as the persistent one
+const controllableAudios = [audio1, audio2, audio3].filter(
+  (audio) => audio !== null
+);
 
-// Background audio elements (controlled by sliders)
-// *** NOTE: Still needs adjustment to match HTML elements and sliders ***
-const backgroundAudios = [
-  new Audio(""), // Placeholder: background1.mp3
-  new Audio(""), // Placeholder: background2.mp3
-];
-
-// Configure background audio defaults
-backgroundAudios.forEach((audio) => {
-  audio.loop = true;
-  audio.volume = 0;
-  audio.play().catch((e) => {
-    console.warn("Autoplay blocked until user interacts.");
-  });
+// sets up the audio
+controllableAudios.forEach((audio, index) => {
+  if (audio) {
+    // makes it so that the audio is set to 50% like the visuals in the html
+    audio.volume = 0.5;
+    audio.preload = "auto";
+    if (index > 0) {
+      audio.loop = true;
+    }
+    // --- Optional Debugging: Verify initial volume ---
+    // console.log(`Initial volume set for ${audio.id}: ${audio.volume}`);
+  }
 });
-
+// soruces for the gifs(glyphs)
 const glyphSources = [
   "https://cdnb.artstation.com/p/assets/images/images/043/163/227/original/augustin-cart-gif-lofi-final.gif?1636484521",
   "https://media1.tenor.com/m/ZSRfK14Kek8AAAAd/lofi-vaporwave.gif",
   "https://i.gifer.com/PPy.gif",
 ];
-
-// *** REMOVED audioSources array as it's no longer used for mediaAudio ***
-// const audioSources = [
-//   "https://thelongesthumstore.sgp1.cdn.digitaloceanspaces.com/IM-2250/erokia_ambient-wave-56-msfxp7-78.mp3",
-//   "https://cdn.freesound.org/previews/621/621181_12574855-hq.mp3",
-//   "https://cdn.freesound.org/previews/629/629168_12574855-lq.mp3",
-// ];
-
+// set the start glyph
 let currentGlyphIndex = 0;
 
-// Set default volume for mediaAudio
-mediaAudio.volume = 0.5; // Starting at 50% volume
-
-// *** UPDATED loadGlyph: Only changes the image source ***
+// loadGlyph: Only changes the image source
 function loadGlyph(index) {
-  // Update visual without stopping audio
-  glyphDisplay.src = glyphSources[index];
-  // No longer changing audio source or resetting progress bar here
+  if (index >= 0 && index < glyphSources.length) {
+    glyphDisplay.src = glyphSources[index];
+  } else {
+    console.error("Invalid glyph index:", index);
+  }
 }
 
 function togglePlay() {
-  if (mediaAudio.paused) {
+  if (audio1 && audio1.paused) {
     playGlyph();
-  } else {
+  } else if (audio1) {
     pauseGlyph();
   }
 }
 
+// the play pause button code
 function updatePlayPauseButton() {
-  if (mediaAudio.paused) {
+  if (audio1 && audio1.paused) {
     playPauseImg.src = "https://img.icons8.com/ios-glyphs/30/play--v2.png";
     playPauseImg.alt = "Play";
-  } else {
+  } else if (audio1) {
     playPauseImg.src = "https://img.icons8.com/ios-glyphs/30/pause--v1.png";
     playPauseImg.alt = "Pause";
   }
 }
-
+// changes the gif
 glyphButtons.forEach((button, index) => {
   button.addEventListener("click", () => {
-    currentGlyphIndex = index;
-    loadGlyph(currentGlyphIndex); // Only loads the image now
+    if (index >= 0 && index < glyphSources.length) {
+      currentGlyphIndex = index;
+      loadGlyph(currentGlyphIndex);
+    } else {
+      console.warn(`Glyph button clicked with out-of-bounds index: ${index}`);
+    }
   });
 });
 
 playPauseButton.addEventListener("click", togglePlay);
 
-// Modified event listeners for vertical sliders
+//vertical slider code
 verticalSliders.forEach((slider, index) => {
-  slider.addEventListener("input", function () {
-    const volume = this.value / 100;
+  if (index < 3) {
+    slider.addEventListener("input", function () {
+      const volume = this.value / 100;
+      const currentValue = this.value;
 
-    // First slider controls mediaAudio volume
-    if (index === 0) {
-      mediaAudio.volume = volume;
-    }
-    // Other sliders control background audio volumes
-    // *** NOTE: This part still assumes only 2 background audios ***
-    else if (backgroundAudios[index - 1]) {
-      backgroundAudios[index - 1].volume = volume;
+      if (index === 0) {
+        if (audio1) audio1.volume = volume;
+        else console.warn("audio-1 not found");
+        if (volumeDisplays[0])
+          volumeDisplays[0].textContent = `${currentValue}%`;
+        else console.warn("volumeDisplays[0] not found");
+      } else if (index === 1) {
+        if (audio2) audio2.volume = volume;
+        else console.warn("audio-2 not found");
+        if (volumeDisplays[1])
+          volumeDisplays[1].textContent = `${currentValue}%`;
+        else console.warn("volumeDisplays[1] not found");
+      } else if (index === 2) {
+        if (audio3) audio3.volume = volume;
+        else console.warn("audio-3 not found");
+        if (volumeDisplays[2])
+          volumeDisplays[2].textContent = `${currentValue}%`;
+        else console.warn("volumeDisplays[2] not found");
+      }
+    });
+  } else {
+    console.warn(`Slider at index ${index} found, but no mapping defined.`);
+    slider.disabled = true;
+  }
+});
+
+// allows for the sliders volume level to effect the displayed text
+window.addEventListener("DOMContentLoaded", () => {
+  verticalSliders.forEach((slider, index) => {
+    let targetAudio = null;
+    if (index === 0) targetAudio = audio1;
+    else if (index === 1) targetAudio = audio2;
+    else if (index === 2) targetAudio = audio3;
+
+    if (targetAudio) {
+      slider.value = targetAudio.volume * 100;
+      if (volumeDisplays[index]) {
+        volumeDisplays[index].textContent = `${slider.value}%`;
+      }
+    } else {
+      slider.value = 0;
+      slider.disabled = true;
+      if (volumeDisplays[index]) {
+        volumeDisplays[index].textContent = `N/A`;
+      }
     }
   });
 });
 
-// Initialize slider positions based on default volumes
-window.addEventListener("DOMContentLoaded", () => {
-  // Set first slider to match mediaAudio default volume
-  if (verticalSliders[0]) {
-    verticalSliders[0].value = mediaAudio.volume * 100;
-  }
+// progress bar
+if (audio1) {
+  audio1.addEventListener("play", updatePlayPauseButton);
+  audio1.addEventListener("pause", updatePlayPauseButton);
 
-  // Set other sliders to 0 (matching background audio defaults)
-  for (let i = 1; i < verticalSliders.length; i++) {
-    if (verticalSliders[i]) {
-      verticalSliders[i].value = 0; // Assuming background starts at 0
+  audio1.addEventListener("timeupdate", () => {
+    if (audio1.duration && isFinite(audio1.duration)) {
+      const progress = (audio1.currentTime / audio1.duration) * 100;
+      progressBar.style.width = `${progress}%`;
+    } else {
+      progressBar.style.width = "0%";
     }
-  }
-});
+  });
 
-mediaAudio.addEventListener("play", updatePlayPauseButton);
-mediaAudio.addEventListener("pause", updatePlayPauseButton);
-
-mediaAudio.addEventListener("timeupdate", () => {
-  // Ensure duration is a valid number before calculating progress
-  if (mediaAudio.duration && isFinite(mediaAudio.duration)) {
-    const progress = (mediaAudio.currentTime / mediaAudio.duration) * 100;
-    progressBar.style.width = progress + "%";
-  } else {
-    progressBar.style.width = "0%"; // Handle cases where duration isn't available yet
-  }
-});
-
-mediaAudio.addEventListener("ended", () => {
-  // When the persistent track ends, reset to beginning and pause
-  pauseGlyph(); // Update button to 'Play'
-  progressBar.style.width = "0%";
-  mediaAudio.currentTime = 0;
-});
+  audio1.addEventListener("ended", () => {
+    pauseGlyph();
+    progressBar.style.width = "0%";
+    audio1.currentTime = 0;
+  });
+}
 
 function playGlyph() {
-  // Attempt to play and catch any errors (like user needing to interact first)
-  mediaAudio.play().catch((error) => {
-    console.error("Playback failed:", error);
-    // You might want to update UI to indicate playback failed or requires interaction
+  console.log("Attempting to play all audio...");
+  let playPromises = controllableAudios.map((audio) => {
+    if (audio) {
+      return audio.play().catch((error) => {
+        const audioId =
+          audio.id || `AudioAtIndex${controllableAudios.indexOf(audio)}`;
+        console.error(`Playback failed for ${audioId}:`, error);
+        return Promise.resolve();
+      });
+    }
+    return Promise.resolve();
+  });
+
+  Promise.all(playPromises).then(() => {
+    if (audio1 && audio1.paused) {
+      updatePlayPauseButton();
+    }
   });
 }
 
+// makes it so the play and pause button effects all audio
 function pauseGlyph() {
-  mediaAudio.pause();
+  console.log("Attempting to pause all audio...");
+  controllableAudios.forEach((audio) => {
+    if (audio) {
+      audio.pause();
+    }
+  });
+  if (audio1) {
+    updatePlayPauseButton();
+  }
 }
 
+// spacebar controll for play and pause
+document.addEventListener("keydown", function (event) {
+  if (event.code === "Space") {
+    const targetTagName = event.target.tagName;
+    if (targetTagName === "INPUT" || targetTagName === "BUTTON") {
+      return;
+    }
+
+    // checks if the pop is open and wont work if it is
+    const popup = document.getElementById("intro-popup");
+    if (popup && popup.style.display !== "none") {
+      event.preventDefault();
+      return;
+    }
+
+    // stops the spacebars deafult function
+    event.preventDefault();
+
+    togglePlay();
+  }
+});
+
 // Initial setup
-loadGlyph(currentGlyphIndex); // Load initial image
-updatePlayPauseButton(); // Set initial button state
-// No need to call loadGlyph specifically for audio anymore as src is set directly
+loadGlyph(currentGlyphIndex);
+if (audio1) {
+  updatePlayPauseButton(); // Set initial button state based on audio1's default (paused)
+}
+
+// Function to close the popup
+function closePopup() {
+  document.getElementById("intro-popup").style.display = "none";
+  document.getElementById("popup-backdrop").style.display = "none";
+}
+
+// Function to show the popup
+function showPopup() {
+  document.getElementById("intro-popup").style.display = "flex";
+  document.getElementById("popup-backdrop").style.display = "block";
+}
+
+// show popup when page loads
+window.addEventListener("load", function () {
+  setTimeout(function () {
+    showPopup();
+  }, 500);
+});
