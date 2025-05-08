@@ -1,0 +1,166 @@
+/* https://colorhunt.co/palette/1a120b3c2a21d5cea3e5e5cb */
+
+body {
+  background-color: #1a120b;
+  display: flex;
+  text-align: center;
+  margin: auto;
+  max-width: 1000px;
+  justify-content: center;
+  align-items: center;
+  font-family: "Space Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  color: #e5e5cb;
+  /* color: #3c2a21; */
+  font-size: 1.1rem;
+  gap: 1.5rem;
+}
+
+.outer {
+  border: 2px dashed #e5e5cb7a;
+  width: 400px;
+  min-height: 200px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  opacity: 1;
+  /* background-color: cornsilk; */
+  transition: opacity 0.5s ease, transform 0.5s ease, background-color 0.5s ease;
+}
+
+.tilt:hover {
+  transform: scale(1.1) rotate(10deg);
+  /* scale: 1.1; */
+  /* rotate: 10deg; */
+  background-color: #2ecc71; /* Change color on hover */
+}
+
+button {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  transition: scale 0.3s ease background-color 0.3s ease;
+  background-color: coral;
+}
+
+button:hover {
+  scale: 0.95;
+  background-color: rgba(255, 127, 80, 0.6);
+}
+
+#duck-icon {
+  transition: fill 0.3s ease;
+}
+
+#duck-icon:hover {
+  fill: #007bff;
+}
+
+#spinner {
+  border: 6px solid #f3f3f3; /* Light grey */
+  border-top: 6px solid #3498db; /* Blue , top face/side of the sqare is blue*/ 
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  animation: spinner 2s linear infinite; /* Spin animation */
+}
+
+@keyframes spinner {
+  0% {
+    rotate: 0deg;
+    /* transform: rotate(0deg); */
+  }
+  100% {
+    rotate: 360deg;
+    /* transform: rotate(360deg); */
+  }
+}
+
+.icon {
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    /* transform: translateY(0); */
+    translate: 0 0;
+  }
+  40% {
+    translate: 0 -30px;
+    /* transform: translateY(-30px); */
+  }
+  60% {
+    translate: 0 -15px;
+    /* scale: 1.5; */
+    /* transform: translateY(-15px); */
+  }
+}
+
+#heart-icon {
+  /* stroke: red; */
+  animation: heartbeat 1s infinite;
+}
+
+@keyframes heartbeat {
+  0% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.3;
+  }
+  100% {
+    scale: 1;
+  }
+}
+
+#side-drawer {
+  position: fixed;
+  top: 0;
+  left: -200px;
+  width: 200px;
+  min-height: 100vh;
+  /* transition: transform 0.5s ease-in-out; */
+  transition: translate 0.5s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  border-right: 2px dashed #e5e5cb7a;
+}
+
+#side-drawer ul > li {
+  padding: 10px;
+}
+
+.box {
+  animation-name: my-animation;
+  animation-duration: 5s;
+  animation-iteration-count: 3;
+  background-color: purple;
+}
+@keyframes my-animation {
+  0% {
+    background-color: purple;
+  }
+  25% {
+    background-color: red;
+  }
+  50% {
+    background-color: orange;
+  }
+  75% {
+    background-color: brown;
+  }
+  100% {
+    background-color: purple;
+  }
+}
