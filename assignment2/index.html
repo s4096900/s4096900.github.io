@@ -21,6 +21,7 @@
         <button class="glyph-button double-border" data-glyph="0"></button>
         <button class="glyph-button double-border" data-glyph="1"></button>
         <button class="glyph-button double-border" data-glyph="2"></button>
+        <button id="credits-button" class="info-button">Credits</button>
       </div>
       <!-- progress bar -->
       <div class="media-area double-border">
@@ -75,7 +76,7 @@
             max="100"
             value="50"
           />
-          <!-- initial start volume, so all the tracks start at 50% volume -->
+          <!-- seting the intitial volume to 50% -->
           <div class="volume-display">50%</div>
         </div>
         <div class="slider-wrapper">
@@ -100,12 +101,10 @@
         </div>
       </div>
     </main>
+    <!-- intro pop up -->
+    <div id="popup-backdrop" class="popup-backdrop" style="display: none"></div>
 
-    <!-- the code below controls the intro pop up -->
-    <div id="popup-backdrop" class="popup-backdrop"></div>
-
-    <!-- Floating Popup -->
-    <div id="intro-popup" class="floating-popup">
+    <div id="intro-popup" class="floating-popup" style="display: none">
       <ul>
         Welcome to LofiMix!
       </ul>
@@ -116,6 +115,45 @@
         or space to start.
       </p>
       <button onclick="closePopup()">Got it!</button>
+    </div>
+    <!-- credits pop up from the button -->
+    <div id="credits-popup" class="floating-popup" style="display: none">
+      <h2>Credits</h2>
+      <p>
+        <strong>Development</strong> <br />Gemini 2.5 Pro, ChatGPT 4o and Claude
+        for tweaking and bugfixes <br /><br />
+        <strong>Visuals (GIFs):</strong>
+      </p>
+
+      <ul class="credits-list">
+        <li>
+          <a href="https://www.artstation.com/artwork/185GN3"
+            >Lofi Girl: Augustin Cart</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://tenor.com/en-GB/view/lofi-vaporwave-purple-sunset-city-gif-20702932"
+            >Vaporwave Sunset: Tenor GIF</a
+          >
+        </li>
+        <li><a href="https://gifer.com/en/PPy">Night Drive: Gifer GIF</a></li>
+      </ul>
+      <br />
+      <strong>Audio Tracks:</strong>
+      <ul class="credits-list">
+        <li>Track 1: "Ambient Wave 56" by Erokia (The Longest Hum)</li>
+        <li>Track 2: "lofibeat" by anechoix (Freesound #591327)</li>
+        <li>Track 3: "lofi beat" by nlib.spam (Freesound #591660)</li>
+      </ul>
+      <br />
+      <!-- default credits for the play and pause taken from the example -->
+      <footer style="font-size: 0.75em; line-height: 1.2">
+        <a href="https://icons8.com/icon/59862/play">Play</a> &amp;
+        <a href="https://icons8.com/icon/61012/pause">Pause</a> icons by
+        <a href="https://icons8.com">Icons8</a>
+      </footer>
+      <button onclick="closeCreditsPopup()">Close</button>
     </div>
   </body>
 </html>

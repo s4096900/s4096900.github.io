@@ -301,3 +301,50 @@ clearer of what to focus on */
 .floating-popup {
   animation: fadeIn 0.3s ease-out;
 }
+#credits-popup h2 {
+  font-size: 1.8em;
+  color: var(--text-main);
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+#credits-popup p {
+  font-size: 0.9em;
+  line-height: 1.6;
+  text-align: left;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#credits-popup strong {
+  color: var(--thumb-color);
+}
+
+.credits-list {
+  list-style-type: disc; /* Or none, or other */
+  padding-left: 20px; /* Indent list items */
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 0.85em;
+}
+
+.credits-list li {
+  margin-bottom: 4px;
+}
+.info-button {
+  cursor: pointer;
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--text-main);
+  background-color: var(--button-bg2);
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-align: center;
+  width: 100%;
+}
+.info-button:hover {
+  background-color: var(--button-hover);
+  transform: scale(1.02);
+}

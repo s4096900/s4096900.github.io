@@ -7,6 +7,12 @@ const progressBar = document.querySelector("#progress-bar");
 const verticalSliders = document.querySelectorAll(".vertical-slider");
 const volumeDisplays = document.querySelectorAll(".volume-display");
 
+// *** NEW: Popups and Backdrop elements (moved to global scope) ***
+const introPopup = document.getElementById("intro-popup");
+const popupBackdrop = document.getElementById("popup-backdrop");
+const creditsButton = document.getElementById("credits-button"); // New credits button
+const creditsPopup = document.getElementById("credits-popup"); // New credits popup
+
 // controlls the audio tracks
 const audio1 = document.querySelector("#audio-1");
 const audio2 = document.querySelector("#audio-2");
@@ -190,6 +196,49 @@ function pauseGlyph() {
   }
 }
 
+// --- Popup Functions (Original and New) ---
+
+// Function to close the INTRO popup
+function closePopup() {
+  if (introPopup) introPopup.style.display = "none";
+  // Only hide backdrop if credits popup is also closed
+  if (creditsPopup && creditsPopup.style.display === "none") {
+    if (popupBackdrop) popupBackdrop.style.display = "none";
+  } else if (!creditsPopup) {
+    // If credits popup doesn't exist, just hide
+    if (popupBackdrop) popupBackdrop.style.display = "none";
+  }
+}
+
+// Function to show the INTRO popup
+function showPopup() {
+  if (introPopup) introPopup.style.display = "flex";
+  if (popupBackdrop) popupBackdrop.style.display = "block";
+}
+
+// *** NEW: Function to close the CREDITS popup ***
+function closeCreditsPopup() {
+  if (creditsPopup) creditsPopup.style.display = "none";
+  // Only hide backdrop if intro popup is also closed
+  if (introPopup && introPopup.style.display === "none") {
+    if (popupBackdrop) popupBackdrop.style.display = "none";
+  } else if (!introPopup) {
+    // If intro popup doesn't exist, just hide
+    if (popupBackdrop) popupBackdrop.style.display = "none";
+  }
+}
+
+// *** NEW: Function to show the CREDITS popup ***
+function showCreditsPopup() {
+  if (creditsPopup) creditsPopup.style.display = "flex";
+  if (popupBackdrop) popupBackdrop.style.display = "block";
+}
+
+// *** NEW: Event Listener for Credits Button ***
+if (creditsButton) {
+  creditsButton.addEventListener("click", showCreditsPopup);
+}
+
 // spacebar controll for play and pause
 document.addEventListener("keydown", function (event) {
   if (event.code === "Space") {
@@ -199,16 +248,28 @@ document.addEventListener("keydown", function (event) {
     }
 
     // checks if the pop is open and wont work if it is
-    const popup = document.getElementById("intro-popup");
-    if (popup && popup.style.display !== "none") {
+    // *** UPDATED: Check both popups ***
+    const isIntroPopupOpen = introPopup && introPopup.style.display !== "none";
+    const isCreditsPopupOpen =
+      creditsPopup && creditsPopup.style.display !== "none";
+
+    if (isIntroPopupOpen || isCreditsPopupOpen) {
       event.preventDefault();
       return;
     }
 
     // stops the spacebars deafult function
     event.preventDefault();
-
     togglePlay();
+  }
+
+  // addding esc functionality to also close pop up
+  if (event.code === "Escape") {
+    if (creditsPopup && creditsPopup.style.display !== "none") {
+      closeCreditsPopup();
+    } else if (introPopup && introPopup.style.display !== "none") {
+      closePopup();
+    }
   }
 });
 
@@ -218,21 +279,12 @@ if (audio1) {
   updatePlayPauseButton(); // Set initial button state based on audio1's default (paused)
 }
 
-// Function to close the popup
-function closePopup() {
-  document.getElementById("intro-popup").style.display = "none";
-  document.getElementById("popup-backdrop").style.display = "none";
-}
-
-// Function to show the popup
-function showPopup() {
-  document.getElementById("intro-popup").style.display = "flex";
-  document.getElementById("popup-backdrop").style.display = "block";
-}
-
 // show popup when page loads
 window.addEventListener("load", function () {
-  setTimeout(function () {
-    showPopup();
-  }, 500);
+  if (introPopup && popupBackdrop) {
+    // Check if intro popup elements exist
+    setTimeout(function () {
+      showPopup(); // Show the intro popup
+    }, 500);
+  }
 });
