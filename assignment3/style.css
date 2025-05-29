@@ -1,0 +1,465 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  /* Suggestion: For a more hand-drawn feel, consider a sketchy font.
+       You'd need to import it (e.g., from Google Fonts or self-hosted)
+       @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+       font-family: 'Architects Daughter', cursive;
+       Otherwise, 'Courier New' maintains the "technical" aspect.
+    */
+  font-family: "Courier New", monospace; /* Defaulting to technical for now */
+  background: #f5efdc; /* Toned paper background */
+  /* Enhanced paper texture: added a subtle noise overlay */
+  background-image:
+        /* Subtle noise texture */ url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E"),
+    /* Original radial gradients for blotches */
+      radial-gradient(
+        circle at 20% 50%,
+        rgba(120, 119, 108, 0.2) 0%,
+        transparent 50%
+      ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(160, 154, 140, 0.15) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 40% 80%,
+      rgba(180, 174, 160, 0.1) 0%,
+      transparent 50%
+    );
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  color: #2c2c2c; /* Default text color */
+}
+
+.selection-container {
+  background: #faf7ed;
+  /* Border: Increased thickness slightly for more "prominent" outline */
+  border: 5px solid #2c2c2c;
+  border-radius: 2px; /* Slightly softened edges, still mostly sharp */
+  padding: 35px; /* Adjusted padding */
+  width: 90vw;
+  max-width: 1200px;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  gap: 25px; /* Adjusted gap */
+  position: relative;
+  /* Shadow: Kept blocky, slightly darker for more definition */
+  box-shadow: 10px 10px 0px rgba(44, 44, 44, 0.25);
+  background-image: repeating-linear-gradient(
+      /* Hatching */ 90deg,
+      transparent,
+      transparent 40px,
+      rgba(44, 44, 44, 0.04) 40px,
+      rgba(44, 44, 44, 0.04) 41px
+    ),
+    repeating-linear-gradient(
+      /* Cross-hatching */ 0deg,
+      transparent,
+      transparent 40px,
+      rgba(44, 44, 44, 0.04) 40px,
+      rgba(44, 44, 44, 0.04) 41px
+    );
+}
+
+.arrow-btn {
+  background: #faf7ed;
+  border: 3px solid #2c2c2c;
+  border-radius: 1px; /* Sharper */
+  width: 70px; /* Adjusted size */
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease-out; /* Faster, snappier transition */
+  position: relative;
+  overflow: visible;
+  box-shadow: 3px 3px 0px rgba(44, 44, 44, 0.2); /* Default shadow */
+}
+
+.arrow-btn::before {
+  /* Hatching effect on button */
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 2px,
+    rgba(44, 44, 44, 0.08) 2px,
+    rgba(44, 44, 44, 0.08) 3px /* Thinner, denser hatching */
+  );
+  z-index: -1;
+}
+
+.arrow-btn:hover {
+  background: #f0e9d2;
+  transform: translate(-3px, -3px); /* More pronounced hover shift */
+  box-shadow: 6px 6px 0px rgba(44, 44, 44, 0.3);
+}
+
+.arrow-btn:active {
+  transform: translate(0px, 0px); /* Pressed state */
+  box-shadow: 2px 2px 0px rgba(44, 44, 44, 0.3);
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  transition: all 0.2s ease;
+}
+
+.arrow-left {
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-right: 20px solid #2c2c2c; /* Solid, confident arrow */
+  filter: drop-shadow(1px 1px 0px rgba(44, 44, 44, 0.2));
+}
+
+.arrow-right {
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 20px solid #2c2c2c;
+  filter: drop-shadow(1px 1px 0px rgba(44, 44, 44, 0.2));
+}
+
+.character-display {
+  flex: 1;
+  height: 100%;
+  background: #fdfbf3; /* Slightly lighter to make image pop */
+  border: 4px solid #2c2c2c;
+  border-radius: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background-image: repeating-linear-gradient(
+      /* Lighter cross-hatch for background detail */ 135deg,
+      transparent,
+      transparent 10px,
+      rgba(44, 44, 44, 0.03) 10px,
+      rgba(44, 44, 44, 0.03) 11px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(44, 44, 44, 0.03) 10px,
+      rgba(44, 44, 44, 0.03) 11px
+    );
+}
+
+.character-display::before {
+  /* Inner dashed "construction line" border */
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  border: 2px dashed rgba(44, 44, 44, 0.25); /* More subtle dash */
+  pointer-events: none;
+}
+
+.character-image {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: scale(0.95);
+  /* Filter to mimic sketch lines slightly more, adjust as needed */
+  filter: contrast(1.1) brightness(1.05) grayscale(0.1) sepia(0.15);
+}
+
+.character-image.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.character-info {
+  width: 360px; /* Slightly wider */
+  height: 100%;
+  background: #faf7ed;
+  border: 4px solid #2c2c2c;
+  border-radius: 1px;
+  padding: 25px;
+  color: #2c2c2c;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-y: hidden; /* As per previous request */
+  background-image: repeating-linear-gradient(
+    /* Hatching for info box */ 45deg,
+    transparent,
+    transparent 10px,
+    rgba(44, 44, 44, 0.02) 10px,
+    rgba(44, 44, 44, 0.02) 11px
+  );
+}
+
+.character-info::before {
+  /* Top accent "tape" or "color swatch" */
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px; /* Thicker accent */
+  /* Solid pop of color, as per prompt */
+  background: #d2691e; /* Main accent color - flat */
+  /* Optional: Add a subtle inner line to make it look like applied tape/swatch */
+  box-shadow: inset 0 -2px 0 rgba(44, 44, 44, 0.2);
+}
+
+.character-name {
+  font-size: 2.1em;
+  font-weight: bold;
+  margin-bottom: 15px; /* Reduced margin */
+  color: #2c2c2c;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  position: relative;
+  padding-bottom: 8px; /* Space for underline */
+}
+
+.character-name::after {
+  /* Underline - like a drawn line */
+  content: "";
+  position: absolute;
+  bottom: 0px; /* Closer to text */
+  left: 0;
+  width: 80%; /* Not full width for sketch feel */
+  height: 3px;
+  background: #2c2c2c; /* Dark line */
+  /* Suggestion: For a more hand-drawn line, use a border-image with an SVG/PNG */
+}
+
+.character-stats {
+  margin-bottom: 20px;
+}
+
+.stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(44, 44, 44, 0.2); /* Lighter, less perfect dashed line */
+}
+/* Remove last stat border */
+.stat:last-child {
+  border-bottom: none;
+}
+
+.stat-name {
+  font-weight: bold;
+  color: #2c2c2c;
+  text-transform: uppercase;
+  font-size: 0.85em;
+  letter-spacing: 1px;
+}
+
+.stat-bar {
+  width: 130px; /* Wider bar */
+  height: 14px; /* Taller bar */
+  background: #e9e2c6; /* Lighter, more paper-like bar background */
+  border: 2px solid #2c2c2c;
+  border-radius: 0;
+  overflow: hidden;
+  position: relative;
+  /* Inner shadow to give depth, like an indent */
+  box-shadow: inset 1px 1px 2px rgba(44, 44, 44, 0.1);
+}
+
+.stat-fill {
+  height: 100%;
+  border-radius: 0;
+  transition: width 0.7s cubic-bezier(0.65, 0, 0.35, 1); /* Easing for a more organic feel */
+  position: relative;
+  overflow: hidden;
+  /* Background color is set by JS - ensure it's a flat color */
+}
+
+.stat-fill::after {
+  /* Texture on filled part of stat bar - more like pencil fill */
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: repeating-linear-gradient(
+    /* Denser, finer hatching for color fill texture */ 45deg,
+    transparent,
+    transparent 1px,
+    rgba(255, 255, 255, 0.25) 1px,
+    rgba(255, 255, 255, 0.25) 2px,
+    transparent 2px,
+    transparent 3px,
+    rgba(0, 0, 0, 0.05) 3px,
+    rgba(0, 0, 0, 0.05) 4px
+  );
+  opacity: 0.7;
+}
+
+.character-description {
+  flex: 1;
+  font-size: 0.95em; /* Slightly smaller */
+  line-height: 1.5;
+  color: #3a3a3a; /* Slightly softer black */
+  text-align: left; /* Less rigid than justify for sketch notes */
+  background: rgba(240, 233, 210, 0.3);
+  padding: 12px;
+  border: 2px dashed rgba(44, 44, 44, 0.2); /* Softer dash */
+  margin-top: 15px;
+  overflow-y: auto;
+  max-height: 140px; /* Adjust as needed */
+  border-radius: 1px;
+}
+
+.selector-indicator {
+  position: absolute;
+  bottom: 15px; /* Adjusted position */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px; /* Wider gap */
+}
+
+.indicator-dot {
+  width: 14px; /* Slightly smaller */
+  height: 14px;
+  border-radius: 0;
+  background: #e9e2c6;
+  border: 2px solid #2c2c2c;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 1px 1px 0px rgba(44, 44, 44, 0.2);
+}
+
+.indicator-dot::before {
+  /* Inner part of the dot - like a filled circle/square */
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: transparent; /* Default transparent */
+  border: 1px solid transparent; /* Default transparent */
+  transform: translate(-50%, -50%);
+  transition: all 0.2s ease;
+}
+
+.indicator-dot.active {
+  background: #d2691e; /* Pop of color */
+  border-color: #a04f10; /* Darker border for active state */
+}
+
+.indicator-dot.active::before {
+  background: #f5efdc; /* Light fill for active dot's center */
+}
+
+.loading-placeholder {
+  font-size: 1.4em;
+  color: #3a3a3a;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+@media (max-width: 768px) {
+  .selection-container {
+    flex-direction: column;
+    height: auto;
+    min-height: 95vh;
+    padding: 15px; /* Reduced padding */
+    gap: 15px;
+    border-width: 4px; /* Slightly thinner border on mobile */
+    box-shadow: 6px 6px 0px rgba(44, 44, 44, 0.2);
+  }
+
+  .character-display {
+    height: 45vh;
+    min-height: 280px;
+    border-width: 3px;
+  }
+  .character-display::before {
+    top: 6px;
+    left: 6px;
+    right: 6px;
+    bottom: 6px;
+    border-width: 1px;
+  }
+
+  .character-info {
+    width: 100%;
+    height: auto;
+    min-height: 220px;
+    overflow-y: visible;
+    padding: 20px;
+    border-width: 3px;
+  }
+  .character-description {
+    max-height: 100px; /* More constrained on mobile */
+    font-size: 0.9em;
+    padding: 10px;
+  }
+
+  .arrow-btn {
+    width: 55px;
+    height: 55px;
+    border-width: 2px;
+    box-shadow: 2px 2px 0px rgba(44, 44, 44, 0.2);
+  }
+  .arrow-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0px rgba(44, 44, 44, 0.25);
+  }
+  .arrow-left {
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    border-right-width: 16px;
+  }
+  .arrow-right {
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    border-left-width: 16px;
+  }
+  .character-name {
+    font-size: 1.8em;
+  }
+  .stat-bar {
+    width: 100px;
+    height: 12px;
+  }
+  .selector-indicator {
+    bottom: 10px;
+    gap: 8px;
+  }
+  .indicator-dot {
+    width: 12px;
+    height: 12px;
+    border-width: 1px;
+  }
+  .indicator-dot.active::before {
+    width: 4px;
+    height: 4px;
+  }
+}
