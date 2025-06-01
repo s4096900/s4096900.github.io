@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const characters = [
     {
       name: "Aria Shadowblade",
-      image: "YOUR_IMAGE_LINK_HERE.png", // TODO: Insert your image link here for Aria Shadowblade
+      image: "img/aussiewar.png",
       stats: { strength: 85, speed: 95, magic: 70, defense: 60 },
       statColors: {
         strength: "#d2691e",
@@ -10,12 +10,10 @@ document.addEventListener("DOMContentLoaded", () => {
         magic: "#5bc0de",
         defense: "#f0ad4e",
       },
-      description:
-        "A master assassin who moves like shadow through the night. Aria combines deadly precision with unmatched agility, making her perfect for players who prefer stealth and speed over brute force.",
     },
     {
       name: "Magnus Ironheart",
-      image: "YOUR_IMAGE_LINK_HERE.png", // TODO: Insert your image link here for Magnus Ironheart
+      image: "img/soldier.webp",
       stats: { strength: 95, speed: 50, magic: 40, defense: 90 },
       statColors: {
         strength: "#d2691e",
@@ -23,12 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
         magic: "#5bc0de",
         defense: "#f0ad4e",
       },
-      description:
-        "A legendary warrior whose strength is matched only by his unwavering courage. Magnus wields ancient weapons with devastating power, serving as the perfect tank for any adventuring party.",
     },
     {
       name: "Luna Starweaver",
-      image: "YOUR_IMAGE_LINK_HERE.png", // TODO: Insert your image link here for Luna Starweaver
+      image: "img/wizard.png",
       stats: { strength: 45, speed: 75, magic: 95, defense: 65 },
       statColors: {
         strength: "#d2691e",
@@ -36,12 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
         magic: "#5bc0de",
         defense: "#f0ad4e",
       },
-      description:
-        "An arcane sorceress who channels the power of celestial bodies. Luna's mastery over magic is unparalleled, capable of reshaping reality with her spells and enchantments.",
     },
     {
       name: "Kai Swiftwind",
-      image: "YOUR_IMAGE_LINK_HERE.png", // TODO: Insert your image link here for Kai Swiftwind
+      image: "img/monk.png",
       stats: { strength: 70, speed: 90, magic: 80, defense: 70 },
       statColors: {
         strength: "#d2691e",
@@ -49,12 +43,10 @@ document.addEventListener("DOMContentLoaded", () => {
         magic: "#5bc0de",
         defense: "#f0ad4e",
       },
-      description:
-        "A balanced fighter who harmonizes physical prowess with elemental magic. Kai represents versatility, able to adapt to any situation with equal parts martial skill and mystical power.",
     },
     {
       name: "Tactical Axeman",
-      image: "YOUR_IMAGE_LINK_HERE.png", // TODO: Insert your image link here for Tactical Axeman (was input_file_0.png)
+      image: "img/warrior.png",
       stats: { strength: 90, speed: 60, magic: 10, defense: 85 },
       statColors: {
         strength: "#d2691e",
@@ -62,8 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
         magic: "#5bc0de",
         defense: "#f0ad4e",
       },
-      description:
-        "A heavily armored operative skilled in close-quarters combat with an axe and shield. Prefers direct engagement and breaching tactics.",
     },
   ];
 
@@ -72,12 +62,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const prevBtn = document.getElementById("prevBtn");
   const nextBtn = document.getElementById("nextBtn");
   const characterImageEl = document.getElementById("characterImage");
-  const loadingTextEl = document.getElementById("loadingText"); // Reference to the "Select a Character" div
+  const loadingTextEl = document.getElementById("loadingText");
   const characterNameEl = document.getElementById("characterName");
   const characterStatsEl = document.getElementById("characterStats");
-  const characterDescriptionEl = document.getElementById(
-    "characterDescription"
-  );
   const indicatorsContainerEl = document.getElementById("indicators");
 
   function createIndicators() {
@@ -96,7 +83,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     characterImageEl.classList.remove("active"); // Start fade-out of old image
 
-    // Hide the loading/placeholder text element permanently after the first character load
     if (loadingTextEl.style.display !== "none") {
       loadingTextEl.style.display = "none";
     }
@@ -105,7 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
       () => {
         characterImageEl.src = character.image;
         characterNameEl.textContent = character.name;
-        characterDescriptionEl.textContent = character.description;
 
         characterStatsEl.innerHTML = "";
         for (const statName in character.stats) {
@@ -182,12 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialization
   createIndicators();
   if (characters.length > 0) {
-    updateCharacterDisplay(true); // Pass true for initial load
+    updateCharacterDisplay(true);
   } else {
-    // If no characters, you might want to show the "Select a Character" or a "No characters" message.
-    characterNameEl.textContent = "No Characters Available";
-    loadingTextEl.textContent = "No Characters Available"; // Keep this or remove if not desired
-    loadingTextEl.style.display = "block"; // Show if no characters
-    characterImageEl.style.display = "none";
   }
 });
