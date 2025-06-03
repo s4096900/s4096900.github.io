@@ -7,6 +7,9 @@
 body {
   font-family: "Courier New", monospace;
   background: #ecddad;
+  /* i used the help of a generator to make this, i am not fully sure how it works
+  but from my understanding the gradiernt combine with the other two work to create the hatched cross
+  grid back texture that is faintly visible */
   background-image: radial-gradient(
       circle at 20% 50%,
       rgba(120, 119, 108, 0.2) 0%,
@@ -33,6 +36,9 @@ body {
 .selection-container {
   background-color: #e5d9b1;
   border: 4px solid transparent;
+  /* using a technique i discovered online, and some clever photoshop work i am able to 
+  use some images as borders for the boxes, i am really glad i learnt and spent the time to work this out
+  as it really helps with my aesthetic and style i am going for */
   border-image-source: url("img/parchb2.png");
   border-image-slice: 60;
   border-image-width: 60px;
@@ -54,7 +60,7 @@ body {
     rgba(44, 44, 44, 0.02) 11px
   );
 }
-
+/* next set of code is for th ebuttons */
 .arrow-btn {
   background: #d3c184;
   border: 3px solid #2c2c2c;
@@ -88,12 +94,16 @@ body {
   z-index: -1;
 }
 
+/* make it slightly darken on hover, ive done this so that the click and hover medium is
+better represented for the brief */
 .arrow-btn:hover {
   background: #f0e9d2;
   transform: translate(-3px, -3px);
   box-shadow: 6px 6px 0px rgba(44, 44, 44, 0.3);
 }
 
+/* this is for the animation clicking the arrows making them move
+i feel the way ive set this up gives it an almsot 3D look to it */
 .arrow-btn:active {
   transform: translate(0px, 0px);
   box-shadow: 2px 2px 0px rgba(44, 44, 44, 0.3);
@@ -119,6 +129,8 @@ body {
   filter: drop-shadow(1px 1px 0px rgba(44, 44, 44, 0.2));
 }
 
+/* this is for the big box sorrounding the whole centre
+display, for the stats and the images */
 .character-display {
   flex: 1;
   height: 100%;
@@ -128,12 +140,15 @@ body {
   position: relative;
   overflow: hidden;
   border: 4px solid transparent;
+  /* once again using the image as a border technique, this uses transparent images */
   border-image-source: url("img/parchb2.png");
   border-image-slice: 60;
   border-image-width: 60px;
   border-image-outset: -60px;
 }
 
+/* css styling for the character images, ive added a little animation when switching 
+just to make it look more modern and less janky */
 .character-image {
   width: 90%;
   height: 90%;
@@ -155,11 +170,13 @@ body {
   opacity: 1;
   transform: scale(1);
 }
-
+/* for the character info ive done a similar thing to the other boxes, however
+i decieded to use a different parchemnet image to add some variety*/
 .character-info {
   width: 330px;
   height: 100%;
   border: 3px solid transparent;
+  /* second border image */
   border-image-source: url("img/parchb.png");
   border-image-slice: 70;
   border-image-width: 60px;
@@ -188,12 +205,14 @@ body {
   position: relative;
 }
 
+/* this addes the nice clean bar under the name, this makes it clearer which info is what
+and helps to make the names heirachy be higher */
 .character-name::after {
   content: "";
   position: absolute;
   bottom: 0px;
   left: 0;
-  width: 80%; /* Not full width for sketch feel */
+  width: 80%;
   height: 3px;
   background: #2c2c2c;
   overflow: hidden;
@@ -202,7 +221,8 @@ body {
 .character-stats {
   margin-bottom: 20px;
 }
-
+/* next few boxes are the code for the stat bars, i deccided to have those rather than text or just numbers,
+as i feel it looks cooler and more like a video game */
 .stat {
   display: flex;
   justify-content: space-between;
@@ -262,7 +282,8 @@ body {
   );
   opacity: 0.7;
 }
-
+/* these are the css for the selectors at the bottom that allow free switching between
+the characters and show which one is currently active */
 .selector-indicator {
   position: absolute;
   bottom: 15px;
@@ -314,6 +335,8 @@ body {
   letter-spacing: 1.5px;
 }
 
+/* this helps it resize to smaller screens and or a smaller window, however i havent
+been able to impliment functionality to a smaller screen */
 @media (max-width: 768px) {
   .selection-container {
     flex-direction: column;
